@@ -2,7 +2,7 @@
   "name": "searches",
   "version": "0.0.1",
   "description": "Generalised search algorithms",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "node test/testAll.js"
   },
@@ -10,6 +10,7 @@
     "search",
     "breadth",
     "depth",
+    "first",
     "a-star"
   ],
   "author": "William Archinal",
