@@ -97,7 +97,7 @@ var testDFSWithNoSoln = function () {
 var testBFSBasic = function () {
     var origin = {x: 0, y: 0};
     var correctGoal = {x: 6, y: 5};
-    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
+    var result = Searches.BreadthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
     assert(result.success === true);
     assert(arePositionsEqual(result.goalPosition, correctGoal));
 };
@@ -105,7 +105,7 @@ var testBFSBasic = function () {
 var testBFSOnGoal = function () {
     var origin = {x: 6, y: 5};
     var correctGoal = {x: 6, y: 5};
-    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
+    var result = Searches.BreadthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
     assert(result.success === true);
     assert(arePositionsEqual(result.goalPosition, correctGoal));
     assert(result.exploredPositions.length === 0);
@@ -113,7 +113,7 @@ var testBFSOnGoal = function () {
 
 var testBFSWithNoSoln = function () {
     var origin = {x: 6, y: 0};
-    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
+    var result = Searches.BreadthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
     assert(result.success === false);
     assert(('goalPosition' in result) === false);
 };
@@ -125,7 +125,7 @@ var heuristic = function (position) {
 var testAStarBasic = function () {
     var origin = {x: 0, y: 0};
     var correctGoal = {x: 6, y: 5};
-    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual, heuristic);
+    var result = Searches.AStar.runSearch(origin, isGoalPosition, getNeighbouringPositions, heuristic, arePositionsEqual);
     assert(result.success === true);
     assert(arePositionsEqual(result.goalPosition, correctGoal));
 };
@@ -133,7 +133,7 @@ var testAStarBasic = function () {
 var testAStarOnGoal = function () {
     var origin = {x: 6, y: 5};
     var correctGoal = {x: 6, y: 5};
-    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual, heuristic);
+    var result = Searches.AStar.runSearch(origin, isGoalPosition, getNeighbouringPositions, heuristic, arePositionsEqual);
     assert(result.success === true);
     assert(arePositionsEqual(result.goalPosition, correctGoal));
     assert(result.exploredPositions.length === 0);
@@ -141,7 +141,7 @@ var testAStarOnGoal = function () {
 
 var testAStarWithNoSoln = function () {
     var origin = {x: 6, y: 0};
-    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual, heuristic);
+    var result = Searches.AStar.runSearch(origin, isGoalPosition, getNeighbouringPositions, heuristic, arePositionsEqual);
     assert(result.success === false);
     assert(('goalPosition' in result) === false);
 };

@@ -2,7 +2,7 @@ var Utils = require('./utils');
 
 var AStar = {};
 
-AStar.runSearch = function(position, isGoalPosition, getNeighbouringPositions, arePositionsEqual, heuristic) {
+AStar.runSearch = function(position, isGoalPosition, getNeighbouringPositions, heuristic, arePositionsEqual) {
     if (arePositionsEqual === undefined) {
         arePositionsEqual = Utils.defaultEquality;
     }
