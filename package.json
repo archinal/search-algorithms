@@ -14,5 +14,9 @@
     "a-star"
   ],
   "author": "William Archinal",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/archinal/search-algorithms"
+  }
 }
