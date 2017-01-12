@@ -1,8 +1,10 @@
+var Utils = require('./utils');
+
 var DepthFirst = {};
 
 DepthFirst.runSearch = function (position, isGoalPosition, getNeighbouringPositions, arePositionsEqual) {
     if (arePositionsEqual === undefined) {
-        arePositionsEqual = defaultEquality;
+        arePositionsEqual = Utils.defaultEquality;
     }
 
     var positionsToExplore = [];
@@ -12,48 +14,16 @@ DepthFirst.runSearch = function (position, isGoalPosition, getNeighbouringPositi
         var currentPosition = positionsToExplore.pop();
 
         if (isGoalPosition(currentPosition)) {
-            return prepareResult(exploredPositions, currentPosition);
+            return Utils.prepareResult(exploredPositions, currentPosition);
         }
 
-        if (!isPositionExplored(exploredPositions, currentPosition, arePositionsEqual)) {
-            exploredPositions = markPositionExplored(exploredPositions, currentPosition);
+        if (!Utils.isPositionExplored(exploredPositions, currentPosition, arePositionsEqual)) {
+            exploredPositions = Utils.markPositionExplored(exploredPositions, currentPosition);
             positionsToExplore = positionsToExplore.concat(getNeighbouringPositions(currentPosition));
         }
     }
 
-    return prepareResult(exploredPositions);
-};
-
-var defaultEquality = function (a, b) {
-    return a == b;
-};
-
-var isPositionExplored = function (exploredPositions, position, arePositionsEqual) {
-    var explored = false;
-
-    var i;
-    for (i = 0; !explored && i < exploredPositions.length; i++) {
-        explored = arePositionsEqual(position, exploredPositions[i]);
-    }
-
-    return explored;
-};
-
-var markPositionExplored = function (exploredPositions, position) {
-    return exploredPositions.concat(position);
-};
-
-var prepareResult = function (exploredPositions, goalPosition) {
-    var result = {
-        exploredPositions: exploredPositions,
-        success: (goalPosition !== undefined)
-    };
-
-    if (result.success) {
-        result.goalPosition = goalPosition;
-    }
-
-    return result;
+    return Utils.prepareResult(exploredPositions);
 };
 
 module.exports = DepthFirst;

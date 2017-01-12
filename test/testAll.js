@@ -4,9 +4,19 @@ var Searches = require('../main');
 
 var main = function () {
     console.log("Running tests...");
+
     testDFSBasic();
     testDFSOnGoal();
     testDFSWithNoSoln();
+
+    testBFSBasic();
+    testBFSOnGoal();
+    testBFSWithNoSoln();
+
+    testAStarBasic();
+    testAStarOnGoal();
+    testAStarWithNoSoln();
+
     console.log("All tests passed!");
 };
 
@@ -79,6 +89,59 @@ var testDFSOnGoal = function () {
 var testDFSWithNoSoln = function () {
     var origin = {x: 6, y: 0};
     var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
+    assert(result.success === false);
+    assert(('goalPosition' in result) === false);
+};
+
+
+var testBFSBasic = function () {
+    var origin = {x: 0, y: 0};
+    var correctGoal = {x: 6, y: 5};
+    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
+    assert(result.success === true);
+    assert(arePositionsEqual(result.goalPosition, correctGoal));
+};
+
+var testBFSOnGoal = function () {
+    var origin = {x: 6, y: 5};
+    var correctGoal = {x: 6, y: 5};
+    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
+    assert(result.success === true);
+    assert(arePositionsEqual(result.goalPosition, correctGoal));
+    assert(result.exploredPositions.length === 0);
+};
+
+var testBFSWithNoSoln = function () {
+    var origin = {x: 6, y: 0};
+    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual);
+    assert(result.success === false);
+    assert(('goalPosition' in result) === false);
+};
+
+var heuristic = function (position) {
+    return Math.abs(position.x - 6) + Math.abs(position.y - 5);
+};
+
+var testAStarBasic = function () {
+    var origin = {x: 0, y: 0};
+    var correctGoal = {x: 6, y: 5};
+    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual, heuristic);
+    assert(result.success === true);
+    assert(arePositionsEqual(result.goalPosition, correctGoal));
+};
+
+var testAStarOnGoal = function () {
+    var origin = {x: 6, y: 5};
+    var correctGoal = {x: 6, y: 5};
+    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual, heuristic);
+    assert(result.success === true);
+    assert(arePositionsEqual(result.goalPosition, correctGoal));
+    assert(result.exploredPositions.length === 0);
+};
+
+var testAStarWithNoSoln = function () {
+    var origin = {x: 6, y: 0};
+    var result = Searches.DepthFirst.runSearch(origin, isGoalPosition, getNeighbouringPositions, arePositionsEqual, heuristic);
     assert(result.success === false);
     assert(('goalPosition' in result) === false);
 };
