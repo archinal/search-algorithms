@@ -10,13 +10,14 @@ DepthFirst.runSearch = function (position, isGoalPosition, getNeighbouringPositi
     positionsToExplore.push(position);
     while (positionsToExplore.length > 0) {
         var currentPosition = positionsToExplore.pop();
+
         if (isGoalPosition(currentPosition)) {
             return prepareResult(exploredPositions, currentPosition);
         }
 
-        if (!isPositionExplored(exploredPositions, position, arePositionsEqual)) {
-            exploredPositions = markPositionExplored(exploredPositions, position);
-            positionsToExplore = positionsToExplore.concat(getNeighbouringPositions(position));
+        if (!isPositionExplored(exploredPositions, currentPosition, arePositionsEqual)) {
+            exploredPositions = markPositionExplored(exploredPositions, currentPosition);
+            positionsToExplore = positionsToExplore.concat(getNeighbouringPositions(currentPosition));
         }
     }
 
